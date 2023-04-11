@@ -46,14 +46,16 @@ export default function SettingDate() {
     success("email");
     setNotiEmail({ date: timeString });
     console.log("send email");
-    Api.Post<Omit<INotiEmail, "id">>(valueNotiEmail, BASE_URL_NOTIEMAIL);
+
+    Api.Post<Omit<INotiEmail, "id">>({ date: timeString }, BASE_URL_NOTIEMAIL);
   };
 
   const onChangeNotiLine = (time: unknown, timeString: string) => {
     success("line");
     setNotiLine({ date: timeString });
     console.log("send line");
-    Api.Post<Omit<INotiLine, "id">>(valueNotiLine, BASE_URL_NOTILINE);
+
+    Api.Post<Omit<INotiLine, "id">>({ date: timeString }, BASE_URL_NOTILINE);
   };
 
   console.log();
