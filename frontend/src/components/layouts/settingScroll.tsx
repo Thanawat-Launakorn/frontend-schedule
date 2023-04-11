@@ -1,5 +1,5 @@
 import React from "react";
-import ICreateder from "../../models/ICreateder";
+import ISettingTime from "../../models/ISettingTime";
 type SettingScrollLayoutProps<T> = {
   className?: string;
   items: Array<T>;
@@ -15,7 +15,7 @@ export default function SettingScrollLayout({
   className,
   items,
   renderItem,
-}: SettingScrollLayoutProps<any>) {
+}: SettingScrollLayoutProps<ISettingTime>) {
   return (
     <div className={`${className}`}>
       {items?.map((item, idx, array) => {

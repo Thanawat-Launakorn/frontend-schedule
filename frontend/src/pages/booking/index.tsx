@@ -3,7 +3,7 @@ import React from "react";
 import moment from "moment";
 import Box from "../../components/box";
 import GridLayout from "../../components/layouts/gridLayout";
-import { Button } from "antd";
+import { Button, Empty } from "antd";
 import { IUser } from "../../models/IUser";
 import * as Api from "../../service/API/Api";
 
@@ -40,6 +40,7 @@ export default function Booking() {
         }
       }
       setUsers(newData);
+      console.log(newData);
     } catch (err) {
       alert(err);
     }
@@ -76,6 +77,7 @@ export default function Booking() {
         <GridLayout
           items={initialUsers}
           className="grid md:grid-cols-5 md:gap-5 overflow-auto py-5 px-2.5 h-96"
+          emptyList={<Empty />}
           renderItem={({ item, key }: { item: any; key: string | number }) => {
             return (
               <>
@@ -83,7 +85,7 @@ export default function Booking() {
                   image={item.user.image}
                   name={item.user.name}
                   position={item.user.position}
-                  className="bg-white card-bottom rounded-lg text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
+                  className="bg-white card-bottom rounded-lg h-40 text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
                 />
               </>
             );

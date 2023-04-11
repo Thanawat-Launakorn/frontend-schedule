@@ -37,7 +37,7 @@ export default function UserList() {
         setOpen(false);
         setConfirmLoading(false);
       }, 2000);
-      await Api.Delete<IUser>(Number(idx));
+      await Api.Delete<IUser>(Number(idx), BASE_URL);
     } catch (err) {
       alert(err);
     } finally {
