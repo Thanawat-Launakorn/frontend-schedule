@@ -10,7 +10,7 @@ import ErrorPage from "./pages/errorPage";
 import CreateUser from "./pages/createUser";
 import EditUser from "./pages/editUser";
 import SettingDate from "./pages/settingDate_Notiline_NotiEmail";
-
+import * as api from "./config/axios";
 function App() {
   const routes: Array<IRoute> = [
     { path: "/home", element: <Home /> },

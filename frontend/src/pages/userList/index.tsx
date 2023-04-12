@@ -5,7 +5,6 @@ import { UserDeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { columns } from "../../data/columns";
 import { Row, Col, Avatar, Tag } from "antd";
-
 import * as Api from "../../service/API/Api";
 import { IUser, IUserTable } from "../../models/IUser";
 import { PlusOutlined, CloudDownloadOutlined } from "@ant-design/icons";
@@ -24,12 +23,12 @@ export default function UserList() {
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState("Are you sure to delete?");
   const [selected, setSelected] = useState({} as Partial<IUser>);
-  const BASE_URL = "http://localhost:8080/user/";
+  const BASE_URL = Api.BASE_URL_USER;
 
   const showModal = () => {
     setOpen(true);
   };
-  const handleOk = async (idx?: any) => {
+  const handleOk = async (idx?: string | number) => {
     try {
       setModalText("The modal will be closed after two seconds");
       setConfirmLoading(true);
@@ -43,6 +42,8 @@ export default function UserList() {
     } finally {
       setTimeout(async () => {
         const { data } = await Api.Get<IUser>(BASE_URL);
+        console.log(data);
+
         setUsers(data);
       }, 2000);
     }

@@ -17,11 +17,10 @@ export default function Booking() {
     { date: "Thur", numDate: moment().day("Thursday").date() },
     { date: "Fri", numDate: moment().day("Friday").date() },
   ]);
-  const BASE_URL = "http://localhost:8080/schedule/";
+  const BASE_URL = Api.BASE_URL_SCHEDULE;
 
   const handleDate = async (idx: string | number) => {
     console.log(idx);
-
     console.log("send");
 
     // console.log(value);
@@ -81,12 +80,14 @@ export default function Booking() {
           renderItem={({ item, key }: { item: any; key: string | number }) => {
             return (
               <>
-                <CardBooking
-                  image={item.user.image}
-                  name={item.user.name}
-                  position={item.user.position}
-                  className="bg-white card-bottom rounded-lg h-40 text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
-                />
+                {item.user ? (
+                  <CardBooking
+                    image={item.user.image}
+                    name={item.user.name}
+                    position={item.user.position}
+                    className="bg-white card-bottom rounded-lg h-40 text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
+                  />
+                ) : null}
               </>
             );
           }}

@@ -13,6 +13,7 @@ import _default from "antd/es/time-picker";
 export default function SettingDate() {
   const format = "HH:mm";
   const [messageApi, contextHolder] = message.useMessage();
+  // const;
   const [initialSettingTime, setInitialSettingTime] = React.useState([
     {
       id: 1,
@@ -39,8 +40,8 @@ export default function SettingDate() {
   const [valueNotiEmail, setNotiEmail] = React.useState<Omit<INotiEmail, "id">>(
     { date: "" }
   );
-  const BASE_URL_NOTILINE = "http://localhost:8080//";
-  const BASE_URL_NOTIEMAIL = "http://localhost:8080//";
+  const BASE_URL_NOTILINE = Api.BASE_URL_LINE;
+  const BASE_URL_NOTIEMAIL = Api.BASE_URL_EMAIL;
 
   const onChangeNotiEmail = (time: unknown, timeString: string) => {
     success("email");

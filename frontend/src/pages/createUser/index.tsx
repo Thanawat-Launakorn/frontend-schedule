@@ -12,7 +12,7 @@ export default function CreateUser() {
   const [preview, setPreview] = React.useState<string | any>();
   const [inputImage, setInputImage] = React.useState<File>();
   const [error, setError] = React.useState("");
-  const BASE_URL = "http://localhost:8080/user/";
+  const BASE_URL = Api.BASE_URL_USER;
   const navigate = useNavigate();
 
   const handleChange = (
