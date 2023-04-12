@@ -23,3 +23,7 @@ span {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.image {
+  /* height: -webkit-fill-available !important; */
+}

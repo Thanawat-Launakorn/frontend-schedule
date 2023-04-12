@@ -8,7 +8,7 @@ import FormCreateUser from "../../components/form/createUserForm";
 export default function CreateUser() {
   const fileInputRef = React.useRef<HTMLInputElement | any>();
   const [loadingButton, setLoadingButton] = React.useState(false as boolean);
-  const [inputUser, setInputUser] = React.useState({} as IUser);
+  const [inputUser, setInputUser] = React.useState({} as Partial<IUser>);
   const [preview, setPreview] = React.useState<string | any>();
   const [inputImage, setInputImage] = React.useState<File>();
   const [error, setError] = React.useState("");

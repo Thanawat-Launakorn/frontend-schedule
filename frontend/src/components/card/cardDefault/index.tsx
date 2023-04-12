@@ -15,13 +15,13 @@ export default function Card({
 }: CardProps) {
   return (
     <div className={`${className}`}>
-      <h1 className="text-md font-bold text-black tracking-tight mb-1">
+      <h1 className="lg:text-md  font-bold text-black tracking-tight mb-1">
         {title}
       </h1>
-      <p className="text-sm font-normal text-gray-500 mb-7 leading-6">
+      <p className="lg:text-sm text-xs font-normal text-gray-500 lg:mb-7 mb-3 leading-6">
         {description}
       </p>
-      <span className="text-xs font-normal text-blue-600 tracking-wider uppercase">
+      <span className="lg:text-xs font-normal text-blue-600 tracking-wider uppercase">
         {position}
       </span>
     </div>

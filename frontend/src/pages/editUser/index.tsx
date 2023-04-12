@@ -10,7 +10,7 @@ import FormEditUser from "../../components/form/editUserForm";
 export default function EditUser() {
   const fileInputRef = React.useRef<HTMLInputElement | any>();
   const [loadingButton, setLoadingButton] = React.useState(false as boolean);
-  const [inputUser, setInputUser] = React.useState({} as IUser);
+  const [inputUser, setInputUser] = React.useState({} as Partial<IUser>);
   const [preview, setPreview] = React.useState<string | any>();
   const [inputImage, setInputImage] = React.useState<File>();
   const [error, setError] = React.useState("");
@@ -21,7 +21,7 @@ export default function EditUser() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setInputUser((prevItem: IUser) => {
+    setInputUser((prevItem: Partial<IUser>) => {
       return { ...prevItem, [e.target.name]: e.target.value };
     });
   };
@@ -41,7 +41,7 @@ export default function EditUser() {
   };
 
   const getValueUser = async (id?: string | number) => {
-    const data = await Api.GetId<IUser>(id, BASE_URL);
+    const data = await Api.GetId<Partial<IUser>>(id, BASE_URL);
 
     if (data) {
       setInputUser({
@@ -67,7 +67,7 @@ export default function EditUser() {
       inputUser.name = `${inputUser.firstname} ${inputUser.lastname}`;
 
       // inputUser.name = "thanawat ";
-      const resData: IUser = {
+      const resData: Partial<IUser> = {
         email: inputUser.email,
         idline: inputUser.idline,
         image: inputUser.image,
@@ -107,7 +107,7 @@ export default function EditUser() {
       };
       reader.readAsDataURL(inputImage);
       reader.onload = () => {
-        inputUser.image = reader.result;
+        if (inputUser.image) inputUser.image = reader.result;
       };
     } else {
       setPreview(null);

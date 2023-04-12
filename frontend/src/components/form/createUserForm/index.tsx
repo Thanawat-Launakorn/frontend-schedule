@@ -34,10 +34,10 @@ type FormProps = {
   valueInputFirstname?: string;
   valueInputLastname?: string;
   valueInputeTel?: string;
-  valueSelectPosition: string;
-  valueInputPassword: string;
+  valueSelectPosition?: string;
+  valueInputPassword?: string;
   valueInputConfirmPassword?: string;
-  valueInputIdline: string;
+  valueInputIdline?: string;
   loading: any;
 };
 export default function FormCreateUser({

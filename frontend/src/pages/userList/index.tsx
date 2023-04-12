@@ -4,7 +4,7 @@ import "./userList.css";
 import { UserDeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { columns } from "../../data/columns";
-import { Row, Col, Avatar, Tag } from "antd";
+import { Row, Col, Avatar, Tag, Empty } from "antd";
 import * as Api from "../../service/API/Api";
 import { IUser, IUserTable } from "../../models/IUser";
 import { PlusOutlined, CloudDownloadOutlined } from "@ant-design/icons";
@@ -13,6 +13,8 @@ import CardUserList from "../../components/card/cardUserList";
 import TableComponent from "../../components/tablecomponent";
 import { wait } from "../../utils/wait";
 import { keys } from "@mui/system";
+import InfiniteScroll from "../../components/layouts/infiniteScroll";
+import CardTable from "../../components/card/cardTable";
 
 export default function UserList() {
   const [initialUsers, setUsers] = React.useState([] as Array<IUser>);
@@ -100,7 +102,7 @@ export default function UserList() {
     })();
   }, []);
   return (
-    <div className="max-w-5xl mx-auto mt-10">
+    <div className="max-w-sm px-4 lg:max-w-5xl lg:px-0 mx-auto mt-10 ">
       <div className="flex justify-between">
         <span className="text-3xl tracking-wide font-bold fontImport uppercase text-gray-900">
           Users
@@ -110,7 +112,7 @@ export default function UserList() {
             <CloudDownloadOutlined />
             Import
           </Button>
-          <span className="mx-2"></span>
+          <span className="mx-1 lg:mx-2"></span>
           <Button
             onClick={handleAddUser}
             type="primary"
@@ -122,37 +124,38 @@ export default function UserList() {
         </div>
       </div>
       {/* card layout grid-cols-3 */}
-      <div className="grid md:grid-cols-3 md:gap-6 mx-auto my-5">
+      <div className="grid lg:grid-cols-3 lg:gap-6 gap-5 mx-auto my-5">
         <CardUserList
           description={dataTable.length.toString()}
           position=""
           title="Members"
-          className="card-bottom rounded-lg text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
+          className="card-bottom rounded-lg text-center lg:text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
         />
         <CardUserList
           description={frontendDeverloper.length.toString()}
           position=""
           title="Frontend Developer"
-          className="card-bottom rounded-lg text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
+          className="card-bottom rounded-lg text-center lg:text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
         />
         <CardUserList
           description={backendDeverloper.length.toString()}
           position=""
           title="Backend Developer"
-          className="card-bottom rounded-lg text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
+          className="card-bottom rounded-lg text-center lg:text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
         />
       </div>
       {/* SearchUser */}
       <div className="text-end">
         <Input.Search
           placeholder="Search here..."
-          className="w-1/3"
+          className="lg:w-1/3 w-full"
           onSearch={(value) => setSearchText(value)}
         />
       </div>
 
+      {/* desktop display */}
       <TableComponent
-        className=" mx-auto text-center shadow-md my-10"
+        className="container mx-auto text-center shadow-md my-10 lg:block hidden"
         columns={[
           {
             title: "Name",
@@ -273,6 +276,33 @@ export default function UserList() {
         <p>{modalText}</p>
         {selected?.name}
       </Modal>
+
+      {/* mobile display */}
+      <div className="lg:hidden">
+        {" "}
+        <InfiniteScroll
+          className="mt-10 overflow-auto infinite-scroll h-96 bg-gray-100 rounded-lg shadow-md px-5 py-7"
+          items={initialUsers}
+          renderItem={({
+            item,
+            key,
+          }: {
+            item: IUser;
+            key: string | number;
+          }) => {
+            return (
+              <CardTable
+                email={item.email}
+                image={item.image}
+                name={item.name}
+                position={item.position}
+                className="w-full flex justify-between  p-3 mb-4 cursor-pointer shadow-md hover:shadow-lg bg-white"
+              />
+            );
+          }}
+          emptyList={<Empty />}
+        />
+      </div>
     </div>
   );
 }

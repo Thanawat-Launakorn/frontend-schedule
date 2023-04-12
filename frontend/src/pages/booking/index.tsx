@@ -22,8 +22,6 @@ export default function Booking() {
   const handleDate = async (idx: string | number) => {
     console.log(idx);
     console.log("send");
-
-    // console.log(value);
     try {
       const { data } = await Api.Get<any>(BASE_URL);
       const newData = [];
@@ -45,20 +43,34 @@ export default function Booking() {
     }
   };
 
-  const handleGenerateRandom = async () => {
-    try {
-      await Api.Random<IUser>(BASE_URL);
-    } catch (err) {
-      alert(err);
-    }
-  };
+  React.useEffect(() => {
+    (async () => {
+      try {
+        await Api.Random<IUser>(BASE_URL);
+        const { data } = await Api.Get<any>(BASE_URL);
+        const newData = [];
+
+        for (const res of data) {
+          const dayFormat = dayjs(res.calendar.date).format("YYYY-MM-DD");
+          const last2index = dayFormat.slice(
+            dayFormat.length - 2,
+            dayFormat.length
+          ); //get last 2 index
+          if (Number(last2index) === moment().day("Monday").date()) {
+            newData.push(res);
+          }
+        }
+        setUsers(newData);
+        console.log(newData);
+      } catch (err) {
+        alert(err);
+      }
+    })();
+  }, []);
 
   return (
-    <div className="max-w-4xl mx-auto mt-10">
-      <Button onClick={handleGenerateRandom} type="primary">
-        Generate
-      </Button>
-      <div className="container   grid grid-cols-5 gap-16 text-center mt-10 mb-10">
+    <div className="max-w-4xl mx-auto mt-10 lg:p-0 px-5">
+      <div className="container grid grid-cols-5 lg:gap-16 gap-2 text-center mt-10 mb-10">
         {arrDate?.map((item, index) => {
           return (
             <div key={index}>
@@ -85,7 +97,7 @@ export default function Booking() {
                     image={item.user.image}
                     name={item.user.name}
                     position={item.user.position}
-                    className="bg-white card-bottom rounded-lg h-40 text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
+                    className="bg-white card-bottom rounded-lg lg:h-40 text-start lg:py-5 lg:px-7 px-10 py-5 h-32 cursor-pointer transition-all delay-75 hover:shadow-lg"
                   />
                 ) : null}
               </>

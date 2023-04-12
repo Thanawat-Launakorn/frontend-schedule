@@ -1,13 +1,13 @@
 export interface IUser {
-  id?: number;
+  id: number;
   key?: string;
-  name?: string;
-  firstname?: string;
-  lastname?: string;
+  name: string;
+  firstname: string;
+  lastname: string;
   password: string;
-  confirmpassword?: string;
+  confirmpassword: string;
   idline: string;
-  fullname?: string; //createUser
+  fullname: string; //createUser
   email: string; //createUser
   position: string; //createUser
   image: any; //createUser

@@ -1,6 +1,12 @@
 import React from "react";
 import { TimePicker, Select, Empty, message } from "antd";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone"; // de
+dayjs.extend(utc);
+dayjs.extend(timezone);
+const tz = "America/New_York";
+
 import * as Api from "../../service/API/Api";
 import line from "../../assets/line_logo.png";
 import email from "../../assets/email_logo.png";
@@ -11,9 +17,7 @@ import SettingScrollLayout from "../../components/layouts/settingScroll";
 import ISettingTime from "../../models/ISettingTime";
 import _default from "antd/es/time-picker";
 export default function SettingDate() {
-  const format = "HH:mm";
   const [messageApi, contextHolder] = message.useMessage();
-  // const;
   const [initialSettingTime, setInitialSettingTime] = React.useState([
     {
       id: 1,
@@ -35,31 +39,49 @@ export default function SettingDate() {
     },
   ] as Array<ISettingTime>);
   const [valueNotiLine, setNotiLine] = React.useState<Omit<INotiLine, "id">>({
-    date: "",
+    date: new Date(),
   });
   const [valueNotiEmail, setNotiEmail] = React.useState<Omit<INotiEmail, "id">>(
-    { date: "" }
+    { date: new Date() }
   );
   const BASE_URL_NOTILINE = Api.BASE_URL_LINE;
   const BASE_URL_NOTIEMAIL = Api.BASE_URL_EMAIL;
 
-  const onChangeNotiEmail = (time: unknown, timeString: string) => {
-    success("email");
-    setNotiEmail({ date: timeString });
-    console.log("send email");
+  const onChangeNotiEmail = async (time: Date, timeString: string) => {
+    try {
+      const valueTime = dayjs.tz(time, "Asia/Bangkok").format("HH:mm");
+      success("email");
+      setNotiEmail({ date: time });
+      console.log("send email");
+      console.log(`timeString: ${timeString}`);
+      console.log(`timeDate: ${valueTime}`);
 
-    Api.Post<Omit<INotiEmail, "id">>({ date: timeString }, BASE_URL_NOTIEMAIL);
+      Api.SetTime<Omit<INotiEmail, "id">>(
+        { date: valueTime },
+        BASE_URL_NOTIEMAIL
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const onChangeNotiLine = (time: unknown, timeString: string) => {
-    success("line");
-    setNotiLine({ date: timeString });
-    console.log("send line");
+  const onChangeNotiLine = async (time: Date, timeString: string) => {
+    try {
+      const valueTime = dayjs.tz(time, "Asia/Bangkok").format("HH:mm");
+      success("line");
+      setNotiLine({ date: time });
+      console.log("send line");
+      console.log(`timeString: ${timeString}`);
+      console.log(`timeDate: ${valueTime}`);
 
-    Api.Post<Omit<INotiLine, "id">>({ date: timeString }, BASE_URL_NOTILINE);
+      Api.SetLine<Omit<INotiLine, "id">>(
+        { date: valueTime },
+        BASE_URL_NOTILINE
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
-
-  console.log();
 
   const success = (ms: string) => {
     messageApi.open({
@@ -67,9 +89,10 @@ export default function SettingDate() {
       content: <span className="font-bold">{`success setting ${ms}`}</span>,
     });
   };
+  // console.log(dayjs.tz.guess()); //Asia/Bangkok
 
   return (
-    <div className="container mt-10 mx-auto max-w-xl">
+    <div className="container mt-10 mx-auto max-w-xl px-4 lg:p-0">
       <div className="flex justify-between my-2">
         <h1>setting</h1>
       </div>

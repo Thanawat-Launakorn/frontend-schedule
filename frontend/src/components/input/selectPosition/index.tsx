@@ -4,7 +4,7 @@ type SelectPositionProps = {
   id: string;
   name: string;
   autoComplete?: string;
-  value: string;
+  value?: string;
   onChange: React.ChangeEventHandler<HTMLSelectElement>;
   className?: string;
 };

@@ -25,7 +25,7 @@ export default function CardBooking({
           {name}
         </h1>
       </div>
-      <div className="my-5"></div>
+      <div className="lg:my-5 my-2.5"></div>
       <span className="text-xs font-normal text-blue-600 tracking-wider uppercase">
         {position}
       </span>

@@ -18,11 +18,15 @@ export default function Home() {
   return (
     <div>
       <div className="bg-gray-200 p-28 w-full bg-animation shadow-sm block">
-        <h1 className="fontThai text-7xl text-transparent">ระบบจองเวร</h1>
+        <h1 className="fontThai lg:text-7xl text-xs text-transparent">
+          ระบบจองเวร
+        </h1>
       </div>
-      <section className=" p-10 text-center tracking-normal">
-        <h1 className="text-7xl capitalize font-bold mb-5">booking system</h1>
-        <p className="text-lg font-normal mb-8">
+      <section className="lg:p-10 p-5 text-center tracking-normal">
+        <h1 className="lg:text-7xl text-4xl uppercase font-bold mb-5">
+          booking system
+        </h1>
+        <p className="lg:text-lg text-sm font-normal mb-8">
           Help designers/developers building beautiful products more flexible
           and working with happiness
         </p>
@@ -33,9 +37,9 @@ export default function Home() {
           <div className="mx-.5"></div>
           <Button size="large">Default Button</Button>
         </Space>
-
+        {/* GridLayoutTop */}
         <GridLayout
-          className="container max-w-6xl mx-auto grid grid-cols-3 gap-10 mt-24"
+          className="container lg:max-w-6xl mx-auto grid lg:grid-cols-3 lg:gap-10 lg:mt-24 sm:grid-cols-1 mt-10 gap-y-10"
           items={DataCreateder.createder_Top}
           renderItem={({
             item,
@@ -52,7 +56,7 @@ export default function Home() {
                   title={item.name}
                   description={item.description}
                   position={item.position}
-                  className="card-top rounded-lg text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
+                  className="card-top rounded-lg text-center py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg lg:text-start"
                   id=""
                 />
               </Link>
@@ -61,7 +65,7 @@ export default function Home() {
         />
 
         <GridLayout
-          className="container max-w-3xl mx-auto grid grid-cols-2 gap-10 mt-10"
+          className="container lg:max-w-3xl mx-auto grid lg:grid-cols-2 lg:gap-10 lg:mt-24 sm:grid-cols-1 mt-10 gap-y-10"
           items={DataCreateder.createder_Bottom}
           renderItem={({
             item,
@@ -78,7 +82,7 @@ export default function Home() {
                   title={item.name}
                   description={item.description}
                   position={item.position}
-                  className="card-top rounded-lg text-start py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg"
+                  className="card-top rounded-lg text-center  py-5 px-7 cursor-pointer transition-all delay-75 hover:shadow-lg lg:text-start"
                   id=""
                 />
               </Link>
